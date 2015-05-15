@@ -27,6 +27,7 @@ import at.pavlov.cannons.container.MaterialHolder;
 import at.pavlov.cannons.projectile.FlyingProjectile;
 import at.pavlov.cannons.projectile.Projectile;
 import at.pavlov.cannons.projectile.ProjectileProperties;
+import at.pavlov.cannons.utils.ExplosionUtil;
 
 public class CreateExplosion {
 
@@ -650,7 +651,9 @@ public class CreateExplosion {
             for (Entity cEntity : projectile_entity.getNearbyEntities(explosion_power, explosion_power, explosion_power))
                 addAffectedEntity(cEntity);
             //make the explosion
-            notCanceled = world.createExplosion(impactLoc.getX(), impactLoc.getY(), impactLoc.getZ(), explosion_power, incendiary, blockDamage);
+            
+            //notCanceled = world.createExplosion(impactLoc.getX(), impactLoc.getY(), impactLoc.getZ(), explosion_power, incendiary, blockDamage);
+            notCanceled = ExplosionUtil.createExplosion(impactLoc, explosion_power, incendiary, blockDamage);
 
 
         //send a message about the impact (only if the projectile has enabled this feature)
@@ -727,7 +730,8 @@ public class CreateExplosion {
                         //only do if explosion in blocks are allowed
                         if (proj.isClusterExplosionsInBlocks()||expLoc.getBlock().isEmpty()||(expLoc.getBlock().isLiquid()&&proj.isUnderwaterDamage()))
                         {
-                            expLoc.getWorld().createExplosion(expLoc,(float) proj.getClusterExplosionsPower());
+                            //expLoc.getWorld().createExplosion(expLoc,(float) proj.getClusterExplosionsPower());
+                            ExplosionUtil.createExplosion(expLoc,(float) proj.getClusterExplosionsPower());
                             sendExplosionToPlayers(null, expLoc, projectile.getSoundImpact());
                         }
                     }

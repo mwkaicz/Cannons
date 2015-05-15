@@ -24,6 +24,7 @@ import at.pavlov.cannons.container.SimpleBlock;
 import at.pavlov.cannons.utils.InventoryManagement;
 import at.pavlov.cannons.projectile.Projectile;
 import at.pavlov.cannons.sign.CannonSign;
+import at.pavlov.cannons.utils.ExplosionUtil;
 
 public class Cannon
 {
@@ -731,7 +732,8 @@ public class Cannon
             double power = getLoadedGunpowder()/design.getMaxLoadableGunpowderNormal()*design.getExplodingLoadedCannons();
             World world = getWorldBukkit();
             if (world != null)
-                world.createExplosion(getRandomBarrelBlock(),(float) power);
+                //world.createExplosion(getRandomBarrelBlock(),(float) power);
+                ExplosionUtil.createExplosion(getRandomBarrelBlock(),(float) power);
         }
         // drop charge
         else
@@ -803,7 +805,8 @@ public class Cannon
     {
         List<Location> locList = design.getAllCannonBlocks(this);
 
-        Bukkit.getWorld(world).createExplosion(locList.get(0), 2);
+        //Bukkit.getWorld(world).createExplosion(locList.get(0), 2);
+        ExplosionUtil.createExplosion(locList.get(0), 2);
         //Bukkit.getWorld(world).createExplosion(locList.get(r.nextInt(locList.size())),getLoadedGunpowder()/design.getMaxLoadableGunpowder()*4,true);
         for (Location loc : locList)
         {
